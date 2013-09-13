@@ -23,7 +23,6 @@ class Face():
 				return False
 		return True
 
-
 class Cube():
 
 	def __init__(self, faces):
@@ -133,14 +132,30 @@ class Cube():
 		return True
 
 
-
-
-
 	def left(dir=False):
 		print "implement"
 
+
 	def top(dir=False):
-		print "implement"
+        front_top = self.faces[FRONT][0, :]
+        right_top = self.faces[RIGHT][0, :]
+        back_top = self.faces[BACK][0, :]
+        left_top = self.faces[LEFT][0, :]
+        if not dir:
+            self.faces[TOP] = np.rot90(self.faces[TOP], 3)
+            self.faces[FRONT][0, :] = right_top
+            self.faces[RIGHT][0, :] = back_top
+            self.faces[BACK][0, :] = left_top
+            self.faces[LEFT][0, :] = front_top
+            print 'Rotate Top Clockwise'
+        else:
+            self.faces[TOP] = np.rot90(self.faces[TOP])
+            self.faces[FRONT][0, :] = left_top
+            self.faces[RIGHT][0, :] = front_top
+            self.faces[BACK][0, :] = right_top
+            self.faces[LEFT][0, :] = back_top
+            print 'Rotate Top Counterclockwise'
+
 
 	def bottom(dir=False):
 		print "implement"
