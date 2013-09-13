@@ -2,6 +2,13 @@
 import csv
 import numpy as np
 
+TOP = 0
+LEFT = 1
+FRONT = 2
+RIGHT =3
+BACK = 4
+BOTTOM = 5
+
 class Face():
 
 	def __init__(self, listrep):
