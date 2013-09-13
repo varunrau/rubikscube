@@ -12,3 +12,5 @@ To implement the other moves we switched the faces around performed a right oper
 To generate random solvable cubes, we started with a solved cube and performed N random moves on the cube.
 
 To solve we performed a naive breadth first search.
+
+Also for funsies we supported rotating the cube.
