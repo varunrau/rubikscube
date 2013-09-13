@@ -10,139 +10,227 @@ BOTTOM = 5
 
 class Face():
 
-	def __init__(self, listrep):
-		self.matrix = np.reshape(listrep,(3,3))
-		print self.matrix
+    def __init__(self, listrep):
+	self.matrix = np.reshape(listrep,(3,3))
+	print self.matrix
 
-	def isSolved(self):
-		mList = self.matrix.tolist()
-		firstElem = mList[0][0]
-		for l in mList:
-			if l != firstElem:
-				return False
-		return True
+    def isSolved(self):
+	mList = self.matrix.tolist()
+	firstElem = mList[0][0]
+	for l in mList:
+	    if l != firstElem:
+		return False
+	return True
+
 
 class Cube():
 
-
     def __init__(self, faces):
 	    self.faces = faces
+	    self.moves = [self.left, self.right, self.front, self.back, self.bottom, self.top]
+
+    def runMove(self):
+    	r = randint()
+    	split = 1.0/6
+    	curmove = 0
+	for move in self.moves:
+	    curmove += split
+	    if r < curmove:
+	    	self.move()
+
+
 
     def left(self, d=False):
-	    front = self.faces[2].matrix
-	    back = self.faces[4].matrix
-	    bottom = self.faces[5].matrix
-	    right = self.faces[3].matrix
-	    left = self.faces[2].matrix
-	    top = self.faces[0].matrix
+	front = self.faces[2].matrix
+	back = self.faces[4].matrix
+	bottom = self.faces[5].matrix
+	right = self.faces[3].matrix
+	left = self.faces[2].matrix
+	top = self.faces[0].matrix
 
-	    tempLeft = left
-	    left = right
-	    right = tempLeft
-	    tempBack = back
-	    back = front
-	    front = tempBack
-	    top = np.rot90(top)
-	    top = np.rot90(top)
-	    bottom = np.rot90(bottom)
-	    bottom = np.rot90(bottom)
-	    self.right(d)
+	tempLeft = left
+	left = right
+	right = tempLeft
+	tempBack = back
+	back = front
+	front = tempBack
+	top = np.rot90(top)
+	top = np.rot90(top)
+	bottom = np.rot90(bottom)
+	bottom = np.rot90(bottom)
+	self.right(d)
 
-	    tempBack = back
-	    back = front
-	    front = tempBack
+	tempBack = back
+	back = front
+	front = tempBack
 
-	    tempRight = right
-	    right = left
-	    left = tempRight
+	tempRight = right
+	right = left
+	left = tempRight
 
-	    top = np.rot90(top)
-	    top = np.rot90(top)
-	    bottom = np.rot90(bottom)
-	    bottom = np.rot90(bottom)
+	top = np.rot90(top)
+	top = np.rot90(top)
+	bottom = np.rot90(bottom)
+	bottom = np.rot90(bottom)
 
+    def front(self, d):
+	tempFront, front = self.faces[2].matrix
+	back, tempBack = self.faces[4].matrix
+	bottom, tempBottom  = self.faces[5].matrix
+	right, tempRight = self.faces[3].matrix
+	left, tempLeft = self.faces[2].matrix
+	top, tempTop = self.faces[0].matrix
+
+	right = front
+	front = left
+	left = back
+	back = tempFront
+	top = np.rot90(top)
+	bottom = np.rot90(bottom)
+
+	self.faces[2].matrix = front
+	self.faces[4].matrix = back
+	self.faces[5].matrix = bottom
+	self.faces[3].matrix = right
+	self.faces[2].matrix = left
+	self.faces[0].matrix = top
+
+	self.right(d)
+
+	tempFront, front = self.faces[2].matrix
+	back, tempBack = self.faces[4].matrix
+	bottom, tempBottom  = self.faces[5].matrix
+	right, tempRight = self.faces[3].matrix
+	left, tempLeft = self.faces[2].matrix
+	top, tempTop = self.faces[0].matrix
+
+	front = right
+	right = back
+	back = left
+	left = tempFront
+	top = np.rot90(top)
+	top = np.rot90(top)
+	top = np.rot90(top)
+	bottom = np.rot90(bottom)
+	bottom = np.rot90(bottom)
+	bottom = np.rot90(bottom)
+
+    def back(self, d):
+	tempFront, front = self.faces[2].matrix
+	back, tempBack = self.faces[4].matrix
+	bottom, tempBottom  = self.faces[5].matrix
+	right, tempRight = self.faces[3].matrix
+	left, tempLeft = self.faces[2].matrix
+	top, tempTop = self.faces[0].matrix
+
+	front = right
+	right = back
+	back = left
+	left = tempFront
+	top = np.rot90(top)
+	top = np.rot90(top)
+	top = np.rot90(top)
+	bottom = np.rot90(bottom)
+	bottom = np.rot90(bottom)
+	bottom = np.rot90(bottom)
+
+	self.right(d)
+
+	tempFront, front = self.faces[2].matrix
+	back, tempBack = self.faces[4].matrix
+	bottom, tempBottom  = self.faces[5].matrix
+	right, tempRight = self.faces[3].matrix
+	left, tempLeft = self.faces[2].matrix
+	top, tempTop = self.faces[0].matrix
+
+	right = front
+	front = left
+	left = back
+	back = tempFront
+	top = np.rot90(top)
+	bottom = np.rot90(bottom)
 
 
 
     def right(self, d=False):
-	    print "implement"
-	    if dir:
-		top = self.faces[0].matrix
-		t1, t2, t3 = top[0, 2], top[1, 2], top[2, 2]
-		front = self.faces[2].matrix
-		back = self.faces[4].matrix
-		bottom = self.faces[5].matrix
-		right = self.faces[3].matrix
-		topTranspose = top.transpose()
-		topTemp = top
-		frontTrans = front.transpose()
-		topTransposeList = topTranspose.tolist()
-		frontTransposeList = frontTrans.tolist()
-		frontTransposeList[2] = topTransposeList[2]
-		top = np.reshape(topTransposeList, (3, 3)).transpose()
+	print "implement"
+	if dir:
+	    top = self.faces[0].matrix
+	    t1, t2, t3 = top[0, 2], top[1, 2], top[2, 2]
+	    front = self.faces[2].matrix
+	    back = self.faces[4].matrix
+	    bottom = self.faces[5].matrix
+	    right = self.faces[3].matrix
+	    topTranspose = top.transpose()
+	    topTemp = top
+	    frontTrans = front.transpose()
+	    topTransposeList = topTranspose.tolist()
+	    frontTransposeList = frontTrans.tolist()
+	    frontTransposeList[2] = topTransposeList[2]
+	    top = np.reshape(topTransposeList, (3, 3)).transpose()
 
-		b1, b2, b3 = back[0, 2], back[1, 2], back[2, 2]
+	    b1, b2, b3 = back[0, 2], back[1, 2], back[2, 2]
 
-		top[0, 2] = back[0, 2]
-		top[1, 2] = back[1, 2]
-		top[2, 2] = back[2, 2]
+	    top[0, 2] = back[0, 2]
+	    top[1, 2] = back[1, 2]
+	    top[2, 2] = back[2, 2]
 
-		bottom[0, 2] = front[0, 2]
-		bottom[1, 2] = front[1, 2]
-		bottom[2, 2] = front[2, 2]
+	    bottom[0, 2] = front[0, 2]
+	    bottom[1, 2] = front[1, 2]
+	    bottom[2, 2] = front[2, 2]
 
-		back[0, 2] = bottom[0, 2]
-		back[1, 2] = bottom[1, 2]
-		back[2, 2] = bottom[2, 2]
+	    back[0, 2] = bottom[0, 2]
+	    back[1, 2] = bottom[1, 2]
+	    back[2, 2] = bottom[2, 2]
 
-		right = np.rot90(right)
-		right = np.rot90(right)
-		right = np.rot90(right)
+	    right = np.rot90(right)
+	    right = np.rot90(right)
+	    right = np.rot90(right)
 
-		self.faces[0].matrix = top
-		self.faces[2].matrix = front
-		self.faces[4].matrix = back
-		self.faces[5].matrix = bottom
-		self.faces[3].matrix = right
+	    self.faces[0].matrix = top
+	    self.faces[2].matrix = front
+	    self.faces[4].matrix = back
+	    self.faces[5].matrix = bottom
+	    self.faces[3].matrix = right
 
-	    else:
+	else:
 
-		top = self.faces[0].matrix
-		t1, t2, t3 = top[0, 2], top[1, 2], top[2, 2]
-		front = self.faces[2].matrix
-		back = self.faces[4].matrix
-		bottom = self.faces[5].matrix
-		right = self.faces[3].matrix
-		topTranspose = top.transpose()
-		topTemp = top
-		frontTrans = front.transpose()
-		topTransposeList = topTranspose.tolist()
-		frontTransposeList = frontTrans.tolist()
-		topTransposeList[2] = frontTransposeList[2]
-		top = np.reshape(topTransposeList, (3, 3)).transpose()
+	    top = self.faces[0].matrix
+	    t1, t2, t3 = top[0, 2], top[1, 2], top[2, 2]
+	    front = self.faces[2].matrix
+	    back = self.faces[4].matrix
+	    bottom = self.faces[5].matrix
+	    right = self.faces[3].matrix
+	    topTranspose = top.transpose()
+	    topTemp = top
+	    frontTrans = front.transpose()
+	    topTransposeList = topTranspose.tolist()
+	    frontTransposeList = frontTrans.tolist()
+	    topTransposeList[2] = frontTransposeList[2]
+	    top = np.reshape(topTransposeList, (3, 3)).transpose()
 
-		b1, b2, b3 = back[0, 2], back[1, 2], back[2, 2]
+	    b1, b2, b3 = back[0, 2], back[1, 2], back[2, 2]
 
-		back[0, 2] = t1
-		back[1, 2] = t2
-		back[2, 2] = t3
+	    back[0, 2] = t1
+	    back[1, 2] = t2
+	    back[2, 2] = t3
 
-		front[0, 2] = bottom[0, 2]
-		front[1, 2] = bottom[1, 2]
-		front[2, 2] = bottom[2, 2]
+	    front[0, 2] = bottom[0, 2]
+	    front[1, 2] = bottom[1, 2]
+	    front[2, 2] = bottom[2, 2]
 
-		bottom[0, 2] = b1
-		bottom[1, 2] = b2
-		bottom[2, 2] = b3
+	    bottom[0, 2] = b1
+	    bottom[1, 2] = b2
+	    bottom[2, 2] = b3
 
-		right = np.rot90(right)
+	    right = np.rot90(right)
 
-		self.faces[0].matrix = top
-		self.faces[2].matrix = front
-		self.faces[4].matrix = back
-		self.faces[5].matrix = bottom
-		self.faces[3].matrix = right
-		import ipdb; ipdb.set_trace() # BREAKPOINT
+	    self.faces[0].matrix = top
+	    self.faces[2].matrix = front
+	    self.faces[4].matrix = back
+	    self.faces[5].matrix = bottom
+	    self.faces[3].matrix = right
+	    import ipdb; ipdb.set_trace() # BREAKPOINT
 
 
 
@@ -195,9 +283,23 @@ with open("input2.txt", "rb") as csvfile:
 	matrix = np.chararray((3, 3))
 	l = []
 	for row in reader:
-		l.append(Face(row))
-
+	    l.append(Face(row))
 	c = Cube(l)
+
+def genRandomCube():
+
+    with open("input.txt", "rb") as csvfile:
+	    reader = csv.reader(csvfile, delimiter=",")
+	    matrix = np.chararray((3, 3))
+	    l = []
+	    for row in reader:
+		    l.append(Face(row))
+
+	    c = Cube(l)
+	    for i in xrange(20):
+	    	c.runMove()
+	    print c
+
 
 
 
