@@ -1,4 +1,3 @@
-
 import csv
 import numpy as np
 
@@ -25,11 +24,10 @@ class Face():
 
 class Cube():
 
-	def __init__(self, faces):
-		self.faces = faces
-		self.right()
+    def __init__(self, faces):
+	    self.faces = faces
 
-	def right(self, dir=False):
+    def right(self, dir=False):
 		print "implement"
 		if dir:
 
@@ -125,40 +123,40 @@ class Cube():
 
 
 
-	def isSolved(self):
-		for face in self.faces:
-			if not face.isSolved():
-				return False
-		return True
+    def isSolved(self):
+	    for face in self.faces:
+		    if not face.isSolved():
+			    return False
+	    return True
 
 
-	def left(dir=False):
-		print "implement"
+    def left(dir=False):
+	    print "implement"
 
 
-	def top(dir=False):
-        front_top = self.faces[FRONT][0, :]
-        right_top = self.faces[RIGHT][0, :]
-        back_top = self.faces[BACK][0, :]
-        left_top = self.faces[LEFT][0, :]
+    def top(self, dir=False):
+        front_top = self.faces[FRONT].matrix[0, :]
+        right_top = self.faces[RIGHT].matrix[0, :]
+        back_top = self.faces[BACK].matrix[0, :]
+        left_top = self.faces[LEFT].matrix[0, :]
         if not dir:
-            self.faces[TOP] = np.rot90(self.faces[TOP], 3)
-            self.faces[FRONT][0, :] = right_top
-            self.faces[RIGHT][0, :] = back_top
-            self.faces[BACK][0, :] = left_top
-            self.faces[LEFT][0, :] = front_top
+            self.faces[TOP].matrix = np.rot90(self.faces[TOP].matrix, 3)
+            self.faces[FRONT].matrix[0, :] = right_top
+            self.faces[RIGHT].matrix[0, :] = back_top
+            self.faces[BACK].matrix[0, :] = left_top
+            self.faces[LEFT].matrix[0, :] = front_top
             print 'Rotate Top Clockwise'
         else:
-            self.faces[TOP] = np.rot90(self.faces[TOP])
-            self.faces[FRONT][0, :] = left_top
-            self.faces[RIGHT][0, :] = front_top
-            self.faces[BACK][0, :] = right_top
-            self.faces[LEFT][0, :] = back_top
+            self.faces[TOP].matrix = np.rot90(self.faces[TOP].matrix)
+            self.faces[FRONT].matrix[0, :] = left_top
+            self.faces[RIGHT].matrix[0, :] = front_top
+            self.faces[BACK].matrix[0, :] = right_top
+            self.faces[LEFT].matrix[0, :] = back_top
             print 'Rotate Top Counterclockwise'
 
 
-	def bottom(dir=False):
-		print "implement"
+    def bottom(dir=False):
+        print "implement"
 
 	def front(dir=False):
 		print "implement"
