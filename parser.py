@@ -15,14 +15,27 @@ class Cube()
 
 	def right(dir=False):
 		print "implement"
+		if dir:
+			print "prime"
+		else:
+			top = self.faces[0]
+
+
+
+
+
 	def left(dir=False):
 		print "implement"
+
 	def top(dir=False):
 		print "implement"
+
 	def bottom(dir=False):
 		print "implement"
+
 	def front(dir=False):
 		print "implement"
+
 	def back(dir=False):
 		print "implement"
 
